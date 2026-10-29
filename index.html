@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Aritmatika Modular</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 25px;
+            background: linear-gradient(135deg, #667eea, #764ba2, #a855f7);
+        }
+
+        .container {
+            background: white;
+            width: 100%;
+            max-width: 480px;
+            padding: 30px;
+            border-radius: 22px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .icon {
+            font-size: 45px;
+        }
+
+        h1 {
+            color: #5531a8;
+            font-size: 25px;
+            margin: 12px 0;
+        }
+
+        .subtitle {
+            color: #777;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        label {
+            display: block;
+            color: #43316f;
+            font-weight: bold;
+            margin: 16px 0 8px;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px;
+            border: 2px solid #e3ddf8;
+            border-radius: 10px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #805ad5;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            margin-top: 22px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(90deg, #667eea, #805ad5);
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 15px #c4b5fd;
+        }
+
+        .result {
+            display: none;
+            margin-top: 22px;
+            padding: 20px;
+            background: linear-gradient(135deg, #ede9fe, #dbeafe);
+            border-radius: 14px;
+            text-align: center;
+        }
+
+        .result h2 {
+            color: #5b21b6;
+            font-size: 28px;
+            margin: 10px 0;
+            overflow-wrap: anywhere;
+        }
+
+        .result p {
+            color: #4c4770;
+            line-height: 1.6;
+        }
+
+        .formula {
+            margin-top: 22px;
+            padding: 15px;
+            border-left: 5px solid #8b5cf6;
+            background: #f8f7ff;
+            border-radius: 8px;
+            color: #51456e;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .footer {
+            margin-top: 22px;
+            text-align: center;
+            color: #999;
+            font-size: 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="header">
+            <div class="icon">🧮</div>
+            <h1>Aritmatika Modular</h1>
+            <p class="subtitle">
+                Kalkulator sisa pembagian<br>
+                Matematika Informatika
+            </p>
+        </div>
+
+        <label for="bilangan">Bilangan (a)</label>
+        <input type="number" id="bilangan"
+               value="17" step="1">
+
+        <label for="modulus">Modulus (n)</label>
+        <input type="number" id="modulus"
+               value="5" min="1" step="1">
+
+        <button onclick="hitungModulo()">
+            ✨ Hitung Sekarang
+        </button>
+
+        <div class="result" id="result">
+            <p>Hasil perhitungan kamu</p>
+            <h2 id="hasil"></h2>
+            <p id="penjelasan"></p>
+        </div>
+
+        <div class="formula">
+            <strong>📘 Rumus dasar</strong><br>
+            a = (n × q) + r<br>
+            r = a mod n<br><br>
+            <span>
+                r adalah sisa pembagian, sedangkan
+                n adalah modulus.
+            </span>
+        </div>
+
+        <div class="footer">
+            Dibuat untuk pembelajaran Matematika Informatika
+        </div>
+
+    </div>
+
+    <script>
+        function hitungModulo() {
+            const inputA =
+                document.getElementById("bilangan").value;
+            const inputN =
+                document.getElementById("modulus").value;
+
+            const a = Number(inputA);
+            const n = Number(inputN);
+
+            if (
+                inputA.trim() === "" ||
+                inputN.trim() === "" ||
+                !Number.isSafeInteger(a) ||
+                !Number.isSafeInteger(n) ||
+                n <= 0
+            ) {
+                alert(
+                    "Masukkan bilangan bulat dan modulus positif!"
+                );
+                return;
+            }
+
+            const sisa = ((a % n) + n) % n;
+            const q = Math.floor(a / n);
+
+            document.getElementById("hasil").innerText =
+                a + " mod " + n + " = " + sisa;
+
+            document.getElementById("penjelasan").innerText =
+                a + " = (" + n + " × " + q +
+                ") + " + sisa;
+
+            document.getElementById("result").style.display =
+                "block";
+        }
+    </script>
+</body>
+</html>
